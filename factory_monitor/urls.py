@@ -20,9 +20,8 @@ from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^users/', include('users.urls')),
+    path('users/', include('users.urls')),
     # include auth.urls
-    url(r'^users/', include('django.contrib.auth.urls')),
-    # to test index
-    url(r'^$', views.index, name='index'),
+    path('users/', include('django.contrib.auth.urls')),
+    path('', views.index, name='index'),
 ]

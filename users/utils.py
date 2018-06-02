@@ -3,7 +3,7 @@ from django.core.mail import send_mail # 发送邮件模块
 from users.models import EmailRecord # 邮箱验证model
 from datetime import datetime
 
-EMAIL_FROM = "Grimm2th@outlook.com" 
+EMAIL_FROM = "ryu328@126.com" 
 
 # 生成随机字符串
 def random_str(randomlength=8):
