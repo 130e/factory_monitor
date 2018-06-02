@@ -69,9 +69,32 @@ def Controler_latest(request,format=None):
 class ProcessorViewSet(viewsets.ModelViewSet):
     queryset = Processor.objects.all()
     serializer_class = ProcessorSerializer
-    #authentication_classes = (SessionAuthentication,BasicAuthentication)
-    #permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, permissions.DjangoModelPermissions)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        threshold=Processor_threshold.objects.get(pk=1)
+        message=[]
+        if serializer.validated_data['level']>threshold.level:
+            message+=['污水处理器：提升泵液位{},超出阈值.'.format(serializer.validated_data['level'])]
+        if threshold.temperature_max>serializer.validated_data['temperature']>threshold.temperature_min:
+            message+=['污水处理器：曝气池温度{},超出阈值.'.format(serializer.validated_data['temperature'])]
+        if threshold.PH_max>serializer.validated_data['PH']>threshold.PH_min:
+            message+=['污水处理器：曝气池PH{}，超出阈值.'.format(serializer.validated_data['PH'])]
+        if threshold.density_max>serializer.validated_data['density']>threshold.density_min:
+            message+=['污水处理器：污泥浓度{}，超出阈值.'.format(serializer.validated_data['density'])]
+        if len(message)!=0:
+            send_to=[user.email for user in User.objects.filter(groups__name='administrator')]
+            send_mail('污水处理器异常警告',
+                      '\n'.join(message),
+                      'cjt1256182832@aliyun.com',
+                      send_to,
+                      fail_silently=False
+                      )
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class ProcessorList(generics.ListAPIView):
     serializer_class = ProcessorSerializer
