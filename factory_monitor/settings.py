@@ -25,7 +25,7 @@ SECRET_KEY = 'y6hzf_srvj1o___)ebi7rrszh-$gr^c5$-ppj(-n&)3vyfak+i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['140.82.18.139']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'machine.apps.MachineConfig',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +123,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REST_FRAMEWORK={
+    #'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
+    #'PAGE_SIZE':2,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework.authentication.BasicAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+        ),
+}
+
+
+
 # custom
+'''
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
@@ -130,3 +145,12 @@ EMAIL_HOST = 'smtp.126.com'
 EMAIL_HOST_USER = 'ryu328'
 EMAIL_HOST_PASSWORD = 'Liu328'
 EMAIL_PORT = 25
+'''
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=True
+EMAIL_HOST='smtp.aliyun.com'
+EMAIL_PORT=465
+EMAIL_HOST_USER='cjt1256182832@aliyun.com'
+EMAIL_HOST_PASSWORD='cjt125618'
+DEFAULT_FROM_EMAIL='cjt1256182832@aliyun'
