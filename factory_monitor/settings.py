@@ -135,17 +135,10 @@ REST_FRAMEWORK={
 
 
 # custom
-'''
 AUTH_USER_MODEL = 'users.User'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.126.com'
-EMAIL_HOST_USER = 'ryu328'
-EMAIL_HOST_PASSWORD = 'Liu328'
-EMAIL_PORT = 25
-'''
+
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS=False
 EMAIL_USE_SSL=True

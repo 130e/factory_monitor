@@ -34,9 +34,9 @@ class RegisterView(View):
             user.email = user_email
             user.password = make_password(request.POST.get("password", ''))
             # 新建为非活跃用户，邮箱验证后变为活跃用户
-            # 目前邮箱未完成所以不开启这个功能
-            user.is_active = True
+            user.is_active = False
             user.save()
+            
             # 验证邮箱
             send_auth_email(user_name, user_email, "register")
             
@@ -49,14 +49,13 @@ class RegisterView(View):
          
 
 class ActiveUserView(View):
-    def get(self, request, user_name, active_code):
+    def get(self, request, user_name, activate_code):
         redirect_to = request.POST.get('next', request.GET.get('next', ''))
         # 找到相应用户
-        record = EmailRecord.objects.filter(name=user_name)
-        if record:
-            if active_code == record.code:
-                user = User.objects.get(username=user_name)
+        user = User.objects.get(username=user_name)
+        if user:
+            if activate_code == user.email_code:
                 user.is_active = True
                 user.save()
                 return redirect('/')
-        return render(request, "users/active_fail.html")
+        return render(request, "users/activate_fail.html")
