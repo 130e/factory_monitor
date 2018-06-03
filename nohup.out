@@ -1,0 +1,65 @@
+[03/Jun/2018 22:33:46] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14618
+[03/Jun/2018 22:33:47] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:33:51] "GET / HTTP/1.1" 200 859
+[03/Jun/2018 22:33:54] "GET /users/logout/?next=/ HTTP/1.1" 302 0
+[03/Jun/2018 22:33:55] "GET / HTTP/1.1" 200 863
+[03/Jun/2018 22:37:02] "GET / HTTP/1.1" 200 863
+Not Found: /favicon.ico
+[03/Jun/2018 22:37:03] "GET /favicon.ico HTTP/1.1" 404 2532
+[03/Jun/2018 22:37:05] "GET /admin/ HTTP/1.1" 302 0
+[03/Jun/2018 22:37:05] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1859
+[03/Jun/2018 22:37:06] "GET /admin/ HTTP/1.1" 302 0
+[03/Jun/2018 22:37:06] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 1859
+[03/Jun/2018 22:37:09] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[03/Jun/2018 22:37:10] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:37:15] "GET /admin/users/user/ HTTP/1.1" 200 4354
+[03/Jun/2018 22:37:15] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:37:18] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14618
+[03/Jun/2018 22:37:18] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:37:20] "GET /admin/auth/group/add/?_to_field=id&_popup=1 HTTP/1.1" 200 6663
+[03/Jun/2018 22:37:21] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:37:22] "GET /admin/auth/permission/add/?_to_field=id&_popup=1 HTTP/1.1" 200 4627
+[03/Jun/2018 22:37:23] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:37:40] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:37:44] "GET /admin/auth/permission/ HTTP/1.1" 200 12829
+[03/Jun/2018 22:37:45] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:38:10] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:38:16] "GET /admin/users/user/ HTTP/1.1" 200 4354
+[03/Jun/2018 22:38:16] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:38:21] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14618
+[03/Jun/2018 22:38:22] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:38:35] "GET /admin/auth/permission/add/?_to_field=id&_popup=1 HTTP/1.1" 200 4627
+[03/Jun/2018 22:38:35] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+Not Found: /users/
+[03/Jun/2018 22:39:14] "GET /users/ HTTP/1.1" 404 4256
+[03/Jun/2018 22:43:15] "GET /admin/users/user/ HTTP/1.1" 200 4354
+[03/Jun/2018 22:43:22] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:43:28] "GET /admin/auth/permission/ HTTP/1.1" 200 12829
+[03/Jun/2018 22:43:28] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:43:44] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:43:47] "GET /admin/users/user/ HTTP/1.1" 200 4354
+[03/Jun/2018 22:43:47] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:43:52] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14618
+[03/Jun/2018 22:43:53] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:53:24] "GET /admin/users/ HTTP/1.1" 200 2398
+[03/Jun/2018 22:53:26] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 22:53:27] "GET /admin/users/user/ HTTP/1.1" 200 4354
+[03/Jun/2018 22:53:29] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 22:54:02] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14618
+[03/Jun/2018 22:54:03] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 23:02:57] "GET /admin/auth/permission/add/?_to_field=id&_popup=1 HTTP/1.1" 200 4627
+[03/Jun/2018 23:02:57] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 03, 2018 - 22:33:39
+Django version 2.0.5, using settings 'factory_monitor.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+[03/Jun/2018 23:06:06] "GET /admin/ HTTP/1.1" 200 5483
+[03/Jun/2018 23:06:09] "GET /admin/users/user/ HTTP/1.1" 200 6646
+[03/Jun/2018 23:06:09] "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+[03/Jun/2018 23:06:10] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
+[03/Jun/2018 23:06:11] "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+[03/Jun/2018 23:06:13] "GET /admin/users/user/1/change/ HTTP/1.1" 200 14899
+[03/Jun/2018 23:06:14] "GET /admin/jsi18n/ HTTP/1.1" 200 3185
