@@ -1,5 +1,5 @@
 from random import Random # 用于生成随机码 
-from django.core.mail import send_mail # 发送邮件模块
+from django.core.mail import EmailMessage # 发送邮件模块
 from .models import User
 from datetime import datetime 
 
@@ -30,9 +30,9 @@ def send_auth_email(name, email, send_type="register"):
         email_body += "请点击下面的链接激活你的账号: http://140.82.18.139:8000/users/activate/{0}/{1}".format(name, code)
         email_body += "\n TheGreatNet Group {}".format(datetime.now())
         # 发送邮件
-        # emailmsg = EmailMessage(subject=email_title, body=email_body, to=[email])
-        from_mail = "cjt1256182832@aliyun.com"
-        send_status = send_mail(email_title, email_body, from_mail, [email])
+        emailmsg = EmailMessage(subject=email_title, body=email_body, to=[email])
+        # from_mail = "cjt1256182832@aliyun.com"
+        # send_status = send_mail(email_title, email_body, from_mail, [email])
         if send_status:
             # success
             pass
