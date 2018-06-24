@@ -20,31 +20,14 @@
                 <h3>注册</h3>
                 <form class="form" action="{% url 'users:register' %}" method="post">
                     {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    <div class="fieldWrapper">
-                        {{ form.username.errors }}
-                        <label for="id_username">Username:</label>
-                        {{ form.username }}
-                        <span class="helptext">{{ form.username.help_text|safe }}</span>
-                    </div>
-                    <div class="fieldWrapper">
-                        {{ form.email.errors }}
-                        <label for="id_email">Email address:</label>
-                        {{ form.email }}
-                    </div>
-                    <div class="fieldWrapper">
-                        {{ form.password1.errors }}
-                        <label for="id_password1">Password:</label>
-                        {{ form.password1 }}
-                        <span class="helptext">{{ form.password1.help_text|safe }}</span>
-                    </div>
-                    <div class="fieldWrapper">
-                        {{ form.password2.errors }}
-                        <label for="id_password2">Password confirmation:</label>
-                        {{ form.password2 }}
-                        <span class="helptext">{{ form.password2.help_text|safe }}</span>
-                    </div>
-                    
+                    {% for field in form %}
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                        {% if field.help_text %}
+                            <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    {% endfor %}
                     <button type="submit" class="btn btn-primary btn-block">注册</button>
                     <input type="hidden" name="next" value="{{ next }}"/>
                 </form>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" type="text/css" href="css/style2.css">
+<!-- font-awesome icons -->
+<link rel="stylesheet" href="css/font.css" type="text/css"/>
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+<script src="js/jquery2.0.3.min.js"></script>
+<script src="js/raphael-min.js"></script>
+<script src="js/morris.js"></script>
+</head>
+<body>
+<header class="header fixed-top clearfix">
+<div class="brand">
+    <a href="index.html" class="logo">
+        FACTORY MONITOR
+    </a>
+    <div class="sidebar-toggle-box">
+        <div class="fa fa-bars"></div>
+    </div>
+</div>
+
+<div class="top-nav clearfix">
+    <ul class="nav pull-right top-menu">
+        <li>
+            <input type="text" class="form-control search" placeholder="搜索仪器">
+        </li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <img alt="" src="images/bg.jpg">
+                <span class="username">用户中心</span>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+                <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i>管理员入口</a></li>
+                <li><a href="login.html"><i class="fa fa-key"></i>注销</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</header>
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li class="sub-menu">
+                    <a class="active" href="index.html">
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>仪器总览</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Detail.html">仪器详情</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="registration/login.html">
+                        <i class="fa fa-user"></i>
+                        <span>返回登录</span>
+                    </a>
+                </li>
+            </ul>            
+        </div>
+    </div>
+</aside>
+<section id="main-content">
+	<section class="wrapper">
+		<div class="machines" id="machines">
+        </div>
+    </section>
+</section>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/jquery.scrollTo.js"></script>
+</html>
