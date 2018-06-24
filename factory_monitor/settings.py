@@ -73,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'factory_monitor.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -147,3 +146,15 @@ EMAIL_PORT=465
 EMAIL_HOST_USER='cjt1256182832@aliyun.com'
 EMAIL_HOST_PASSWORD='cjt125618'
 DEFAULT_FROM_EMAIL='cjt1256182832@aliyun.com'
+
+LOGIN_URL = '/users/login/'
+
+# css static dirs
+STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (  
+    ('css',os.path.join(STATIC_ROOT,'css').replace('\\','/') ),    
+    ('js',os.path.join(STATIC_ROOT,'js').replace('\\','/') ),   
+    ('images',os.path.join(STATIC_ROOT,'images').replace('\\','/') ),   
+    ('font',os.path.join(STATIC_ROOT,'font').replace('\\','/') ),   
+)  

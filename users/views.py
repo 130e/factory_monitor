@@ -6,17 +6,13 @@ from .forms import RegisterForm
 from .models import User
 from .utils import send_auth_email
 
-# Create your views here.
-def index(request):
-    return render(request,'index.html')
-
 
 class RegisterView(View):
     
     def get(self, request):
         redirect_to = request.POST.get('next', request.GET.get('next', ''))
         empty_form = RegisterForm()
-        return render(request, 'users/register.html', context={'form': empty_form, 'next': redirect_to})
+        return render(request, 'registration/registration.html', context={'form': empty_form, 'next': redirect_to})
     def post(self, request):
         redirect_to = request.POST.get('next', request.GET.get('next', ''))
         # request.POST 是一个类字典数据结构，记录了用户提交的注册信息
