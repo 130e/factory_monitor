@@ -31,8 +31,8 @@ def send_auth_email(name, email, send_type="register"):
         email_body += "\n TheGreatNet Group {}".format(datetime.now())
         # 发送邮件
         emailmsg = EmailMessage(subject=email_title, body=email_body, to=[email])
-        # from_mail = "cjt1256182832@aliyun.com"
-        # send_status = send_mail(email_title, email_body, from_mail, [email])
+        from_mail = "cjt1256182832@aliyun.com"
+        send_status = send_mail(email_title, email_body, from_mail, [email])
         if send_status:
             # success
             pass

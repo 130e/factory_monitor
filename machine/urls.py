@@ -14,4 +14,7 @@ urlpatterns=[
     url(r'^controler/time/latest/$',views.Controler_latest),
     url(r'^processor/time/$',views.ControlerList.as_view()),
     url(r'^processor/time/latest/$',views.Controler_latest),
+    url(r'^detail/controler/$',views.ControlerDetail),
+    url(r'^detail/processor/$',views.ProcessorDetail),
+    url(r'^detail/search/&',views.Search)
 ]
