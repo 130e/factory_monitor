@@ -1,5 +1,5 @@
 from random import Random # 用于生成随机码 
-from django.core.mail import EmailMessage # 发送邮件模块
+from django.core.mail import EmailMessage, send_mail # 发送邮件模块
 from .models import User
 from datetime import datetime 
 
