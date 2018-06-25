@@ -157,4 +157,6 @@ STATICFILES_DIRS = (
     ('js',os.path.join(STATIC_ROOT,'js').replace('\\','/') ),   
     ('images',os.path.join(STATIC_ROOT,'images').replace('\\','/') ),   
     ('fonts',os.path.join(STATIC_ROOT,'fonts').replace('\\','/') ),
-)  
+)
+
+AUTH_USER_MODEL = 'users.User'

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework import viewsets,generics
 from machine.models import Controler,Processor,Controler_threshold,Processor_threshold
 from machine.serializers import ControlerSerializer,ProcessorSerializer
@@ -8,7 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework import status
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from users.models import User
 from django.core.mail import send_mail
 
 class ControlerViewSet(viewsets.ModelViewSet):
@@ -108,6 +109,7 @@ class ProcessorList(generics.ListAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
 def Processor_latest(request,format=None):
     try:
         data=Processor.objects.latest('timestamp')
@@ -115,3 +117,23 @@ def Processor_latest(request,format=None):
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer=ProcessorSerializer(data)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
+def ControlerDetail(request):
+    return render(request,'ControlerDetail.html')
+
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
+def ProcessorDetail(request):
+    return render(request,'ProcessorDetail.html')
+
+def Search(request):
+    machine=request.GET.get('machine').lower()
+    if machine=='controler':
+        return redirect('/api/machine/detail/controler/')
+    if machine=='Processor':
+        return redirect('/api/machine/detail/processor/')
+    return render()
+
