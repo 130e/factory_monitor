@@ -55,7 +55,7 @@ class ControlerList(generics.ListAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated,))
+#@permission_classes((permissions.IsAuthenticated,))
 def Controler_latest(request,format=None):
     try:
         data=Controler.objects.latest('timestamp')
@@ -121,7 +121,7 @@ def Processor_latest(request,format=None):
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticated,))
 def ControlerDetail(request):
-    return render(request,'ControlerDetail.html')
+    return render(request,'Detail.html')
 
 
 @api_view(['GET'])
