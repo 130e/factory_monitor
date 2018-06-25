@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>注册</title>
     <!-- <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="login-style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/login-style.css">
     <style>
         .errorlist {
             color: red;
@@ -18,32 +18,26 @@
         <div class="unit-1-2 unit-1-on-mobile">
             <h2>用户注册</h2>
             <form class="form" action="{% url 'users:register' %}" method="post">
-                    <!-- {% csrf_token %}
-                    {{ form.non_field_errors }}
-                    {% for field in form %}
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {{ field.errors }}
-                        {% if field.help_text %} -->
+                {% csrf_token %}
+                {{ form.non_field_errors }}
                 <div class="username">
+                    {{ form.username.errors }}
                     <span class="username" style="height:19px">用户名：</span>
-                     <input type="text" name="name" class="name" placeholder="" required="">
+                     <input type="text" name="username" class="name" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
                  <div class="e-mail">
                     <span class="e-mail" style="height:19px">邮箱：</span>
-                     <input type="text" name="e-mail" class="e-mail" placeholder="" required="">
+                     <input type="email" name="e-mail" class="e-mail" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
                 <div class="password-agileits">
-                    <span class="username"style="height:19px">密码:</span>
+                    <span class="password"style="height:19px">密码:</span>
                     <input type="password" name="password" class="password" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
-                            <!-- <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
-                        {% endif %}
-                    {% endfor %} -->
-                <div class="login-w3"><!-- <button type="hidden" class="btn btn-primary btn-block">登录</button> -->
+                            
+                <div class="login-w3">
                     <input type="submit" name="next" clasd="login" value="注  册">
                     </div>
             </form>

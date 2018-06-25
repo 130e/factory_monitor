@@ -148,6 +148,7 @@ EMAIL_HOST_PASSWORD='cjt125618'
 DEFAULT_FROM_EMAIL='cjt1256182832@aliyun.com'
 
 LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = ''
 
 # css static dirs
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
