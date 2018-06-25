@@ -150,11 +150,11 @@ DEFAULT_FROM_EMAIL='cjt1256182832@aliyun.com'
 LOGIN_URL = '/users/login/'
 
 # css static dirs
-STATIC_ROOT = os.path.join(os.path.dirname(__file__),'static')
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (  
     ('css',os.path.join(STATIC_ROOT,'css').replace('\\','/') ),    
     ('js',os.path.join(STATIC_ROOT,'js').replace('\\','/') ),   
     ('images',os.path.join(STATIC_ROOT,'images').replace('\\','/') ),   
-    ('font',os.path.join(STATIC_ROOT,'font').replace('\\','/') ),   
+    ('fonts',os.path.join(STATIC_ROOT,'fonts').replace('\\','/') ),
 )  
