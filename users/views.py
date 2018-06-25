@@ -6,13 +6,13 @@ from .forms import RegisterForm
 from .models import User
 from .utils import send_auth_email
 
-
 class RegisterView(View):
     
     def get(self, request):
         redirect_to = request.POST.get('next', request.GET.get('next', ''))
         empty_form = RegisterForm()
         return render(request, 'registration/registration.html', context={'form': empty_form, 'next': redirect_to})
+    
     def post(self, request):
         redirect_to = request.POST.get('next', request.GET.get('next', ''))
         # request.POST 是一个类字典数据结构，记录了用户提交的注册信息
@@ -40,8 +40,8 @@ class RegisterView(View):
                 return redirect(redirect_to)
             else:
                 return redirect('/')
-        # better to return a fail msg
-        return redirect('/')
+        else:
+            return render(request, 'registration/registration.html', context={'form': form, 'next': redirect_to})
          
 
 class ActiveUserView(View):
