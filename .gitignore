@@ -1,0 +1,6 @@
+factory_monitor/__pycache__/*
+machine/__pycache__/*
+users/migrations/__pycache__/*
+users/__pycache__/*
+machine/migrations/__pycache__/*
+*.pyc
