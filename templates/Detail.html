@@ -91,18 +91,69 @@
 <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 <script type="text/javascript">
 
-
+    var receive_All ;
     //water_in 是出水流量列表
-	var max_water_in = 1000;
-	var max_water_out = 1000;
-	var max_COD = 80;
-	var max_BOD = 40;
     var water_in = [0];
 	var water_out = [0];
 	var COD = [0];
 	var BOD = [0];
+	var x_update = [0]
+	function loadAllXMLDoc()
+{
+	//今天的时间
+	var max_length
+	var mytime
+	var my_t = new Date()
+	var month = my_t.getMonth()+1
+	//alert(month)
+	var t_seq = 'time?'+'year='+my_t.getFullYear()+'&month='+month+'&day='+my_t.getDate()
+    //alert('time?'+'year='+my_t.getFullYear()+'&month='+month+'&day='+my_t.getDate())
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	alert(xmlhttp.responseText)
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+
+			receive_All = JSON.parse(xmlhttp.responseText);
+			max_length = receive_All.length
+			for (var i=0;i < max_length; i++){
+			    water_in.push(receive_All[max_length-1-i].water_in)
+			    water_out.push(receive_All[max_length-1-i].water_out)
+			    COD.push(receive_All[max_length-1-i].COD)
+	            BOD.push(receive_All[max_length-1-i].BOD)
+	            mytime = receive_All[max_length-1-i].timestamp;
+			    x_update.push(format(mytime));
+
+			}
+
+		}
+
+	}
+	//改一下时间
+	xmlhttp.open("GET","http://127.0.0.1:8000/api/machine/controler/"+t_seq+"&format=json",true);
+	xmlhttp.send();
+};
+	loadAllXMLDoc();
+
+	var max_water_in = 1000;
+	var max_water_out = 1000;
+	var max_COD = 80;
+	var max_BOD = 40;
+
     //var x_update 是横坐标列表
-    var x_update = [0];
+
     // 基于准备好的dom，初始化echarts图表
     var Chart_water_in = echarts.init(document.getElementById("Water_in"));
 	var Chart_water_out = echarts.init(document.getElementById("Water_out"));
@@ -337,7 +388,6 @@ function loadXMLDoc()
 	var xmlhttp;
 	if (window.XMLHttpRequest)
 	{
-
 		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
 		xmlhttp=new XMLHttpRequest();
 	}
@@ -346,8 +396,10 @@ function loadXMLDoc()
 		// IE6, IE5 浏览器执行代码
 		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
+	//alert('1: '+xmlhttp.readyState+' '+xmlhttp.status);
 	xmlhttp.onreadystatechange=function()
 	{
+		//alert('2: '+xmlhttp.readyState+' '+xmlhttp.status)
 		if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		{
 			//document.getElementById("show").innerHTML=xmlhttp.responseText
@@ -363,11 +415,13 @@ function loadXMLDoc()
 			Chart_water_out.setOption(option_water_out);
 			Chart_COD.setOption(option_COD);
 			Chart_BOD.setOption(option_BOD);
-		}
+		};
+
 
 	}
 	xmlhttp.open("GET","http://127.0.0.1:8000/api/machine/controler/time/latest/?format=json",true);
 	xmlhttp.send();
+
 };
 
 function format(mytime)
@@ -375,9 +429,11 @@ function format(mytime)
 return mytime[11]+mytime[12]+mytime[13]+mytime[14]+mytime[15]+mytime[16]+mytime[17]+mytime[18];
 };
 
+
 function update()
 {
 loadXMLDoc()
+
 }
     //setInterval是间隔一定市场循环调用函数
     setInterval(function(){update()},5000);
