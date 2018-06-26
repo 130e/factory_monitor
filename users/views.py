@@ -6,6 +6,8 @@ from .forms import RegisterForm
 from .models import User
 from .utils import send_auth_email
 
+import logging
+
 class RegisterView(View):
     
     def get(self, request):
@@ -30,6 +32,11 @@ class RegisterView(View):
             # 新建为非活跃用户，邮箱验证后变为活跃用户
             user.is_active = False
             user.save()
+            
+            # logging
+            logger = logging.getLogger('users.register')
+            logger.info('New User {0} registered.'.format(user_name))
+            
             
             # 验证邮箱
             send_auth_email(user_name, user_email)
