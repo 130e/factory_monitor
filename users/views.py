@@ -32,7 +32,7 @@ class RegisterView(View):
             user.save()
             
             # 验证邮箱
-            send_auth_email(user_name, user_email, "register")
+            send_auth_email(user_name, user_email)
             return redirect('/')
         else:
             return render(request, 'registration/registration.html', context={'form': form})
@@ -47,4 +47,4 @@ class ActiveUserView(View):
                 user.is_active = True
                 user.save()
                 return redirect('/')
-        return render(request, "users/activate_fail.html")
+        return render(request, "registration/activate_fail.html")
