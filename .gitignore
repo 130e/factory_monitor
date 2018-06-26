@@ -4,3 +4,5 @@ users/migrations/__pycache__/*
 users/__pycache__/*
 machine/migrations/__pycache__/*
 *.pyc
+db.sqlite3
+.idea/
