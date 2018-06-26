@@ -19,7 +19,7 @@
             <h2>用户注册</h2>
             <form class="form" action="{% url 'users:register' %}" method="post">
                 {% csrf_token %}
-                {{ form.non_field_errors }}
+                {{ form.errors }}
                 <div class="username">
                     {{ form.username.errors }}
                     <span class="username" style="height:19px">用户名：</span>
@@ -28,17 +28,21 @@
                 </div>
                  <div class="e-mail">
                     <span class="e-mail" style="height:19px">邮箱：</span>
-                     <input type="email" name="e-mail" class="e-mail" placeholder="" required="">
+                     <input type="email" name="email" class="e-mail" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
                 <div class="password-agileits">
                     <span class="password"style="height:19px">密码:</span>
-                    <input type="password" name="password" class="password" placeholder="" required="">
+                    <input type="password" name="password1" class="password" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
-                            
+                <div class="password2">
+                    <span class="password"style="height:19px">密码确认:</span>
+                    <input type="password" name="password2" class="password" placeholder="" required="">
+                    <div class="clear"></div>
+                </div>        
                 <div class="login-w3">
-                    <input type="submit" name="next" clasd="login" value="注  册">
+                    <input type="submit" class="login" value="注  册">
                     </div>
             </form>
             <div class="flex-left top-gap text-small">
