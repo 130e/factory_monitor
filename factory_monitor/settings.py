@@ -159,5 +159,3 @@ STATICFILES_DIRS = (
     ('images',os.path.join(STATIC_ROOT,'images').replace('\\','/') ),   
     ('fonts',os.path.join(STATIC_ROOT,'fonts').replace('\\','/') ),
 )
-
-AUTH_USER_MODEL = 'users.User'
