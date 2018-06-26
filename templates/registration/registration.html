@@ -19,7 +19,7 @@
             <h2>用户注册</h2>
             <form class="form" action="{% url 'users:register' %}" method="post">
                 {% csrf_token %}
-                {{ form.errors }}
+                
                 <div class="username">
                     {{ form.username.errors }}
                     <span class="username" style="height:19px">用户名：</span>
@@ -27,16 +27,19 @@
                     <div class="clear"></div>
                 </div>
                  <div class="e-mail">
+                    {{ form.email.errors }}
                     <span class="e-mail" style="height:19px">邮箱：</span>
                      <input type="email" name="email" class="e-mail" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
                 <div class="password-agileits">
+                    {{ form.password1.errors }}
                     <span class="password"style="height:19px">密码:</span>
                     <input type="password" name="password1" class="password" placeholder="" required="">
                     <div class="clear"></div>
                 </div>
                 <div class="password2">
+                    {{ form.password2.errors }}
                     <span class="password"style="height:19px">密码确认:</span>
                     <input type="password" name="password2" class="password" placeholder="" required="">
                     <div class="clear"></div>
@@ -47,10 +50,10 @@
             </form>
             <div class="flex-left top-gap text-small">
                 <div class="unit-2-3">
-                    <span>已有账号？<a href="{% url 'login' %}">立即登录</a></span>
+                    <span>已有账号？<a href="{% url 'users:login' %}">立即登录</a></span>
                 </div>
-              <!--   <div class="unit-1-3 flex-right"><span><a href="{% url 'password_reset' %}">忘记密码？</a></span>
-                </div> -->
+                <div class="unit-1-3 flex-right"><span><a href="{% url 'users:password_reset' %}">忘记密码？</a></span>
+                </div>
             </div>
         </div>
     </div>

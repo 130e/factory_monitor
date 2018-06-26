@@ -160,4 +160,58 @@ STATICFILES_DIRS = (
     ('fonts',os.path.join(STATIC_ROOT,'fonts').replace('\\','/') ),
 )
 
-AUTH_USER_MODEL = 'users.User'
+# custom logger
+LOGGING = {
+    'version': 1,#日志版本
+    'disable_existing_loggers': False,#True：disable原有日志相关配置
+    'formatters': {#日志格式
+        'standard': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {#简单格式
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {#日志过滤器
+        'require_debug_true': {#是否支持DEBUG级别日志过滤
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {#日志handlers
+        'file': {#文件handler
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': './controller.log',
+            'formatter': 'standard',
+        },
+        'console': {#控制器handler，INFO级别以上的日志都要Simple格式输出到控制台
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'mail_admins': {#邮件handler，ERROR级别以上的日志要特殊过滤后输出
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'standard',
+            #'filters': ['special']
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'users.register': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            #'filters': ['special'],
+        },
+    }
+}

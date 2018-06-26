@@ -46,7 +46,7 @@
             <ul class="dropdown-menu extended logout">
                 <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i>管理员入口</a></li>
-                <li><a href="{% url 'logout' %}?next={{request.path}}"><i class="fa fa-key"></i>注销</a></li>
+                <li><a href="{% url 'users:logout' %}?next={{request.path}}"><i class="fa fa-key"></i>注销</a></li>
             </ul>
         </li>
        
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'login' %}?next={{ request.path }}">
+                    <a href="{% url 'users:login' %}?next={{ request.path }}">
                         <i class="fa fa-user"></i>
                         <span>返回登录</span>
                     </a>
