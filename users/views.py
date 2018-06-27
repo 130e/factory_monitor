@@ -6,19 +6,15 @@ from .forms import RegisterForm
 from .models import User
 from .utils import send_auth_email
 
-# Create your views here.
-def index(request):
-    return render(request,'index.html')
-
+import logging
 
 class RegisterView(View):
     
     def get(self, request):
-        redirect_to = request.POST.get('next', request.GET.get('next', ''))
         empty_form = RegisterForm()
-        return render(request, 'users/register.html', context={'form': empty_form, 'next': redirect_to})
+        return render(request, 'registration/registration.html', context={'form': empty_form})
+    
     def post(self, request):
-        redirect_to = request.POST.get('next', request.GET.get('next', ''))
         # request.POST 是一个类字典数据结构，记录了用户提交的注册信息
         # 这里提交的就是用户名（username）、密码（password）、确认密码、邮箱（email）
         # 用这些数据实例化一个用户注册表单
@@ -37,20 +33,20 @@ class RegisterView(View):
             user.is_active = False
             user.save()
             
-            # 验证邮箱
-            send_auth_email(user_name, user_email, "register")
+            # logging
+            logger = logging.getLogger('users.register')
+            logger.info('New User {0} registered.'.format(user_name))
             
-            if redirect_to:
-                return redirect(redirect_to)
-            else:
-                return redirect('/')
-        # better to return a fail msg
-        return redirect('/')
+            
+            # 验证邮箱
+            send_auth_email(user_name, user_email)
+            return redirect('/')
+        else:
+            return render(request, 'registration/registration.html', context={'form': form})
          
 
 class ActiveUserView(View):
     def get(self, request, user_name, activate_code):
-        redirect_to = request.POST.get('next', request.GET.get('next', ''))
         # 找到相应用户
         user = User.objects.get(username=user_name)
         if user:
@@ -58,4 +54,4 @@ class ActiveUserView(View):
                 user.is_active = True
                 user.save()
                 return redirect('/')
-        return render(request, "users/activate_fail.html")
+        return render(request, "registration/activate_fail.html")

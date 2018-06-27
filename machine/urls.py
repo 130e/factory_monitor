@@ -10,8 +10,11 @@ router.register(r'processor',views.ProcessorViewSet)
 app_name='machine'
 urlpatterns=[
     url(r'',include(router.urls)),
-    url(r'^controler/time/$',views.ControlerList.as_view()),
     url(r'^controler/time/latest/$',views.Controler_latest),
-    url(r'^processor/time/$',views.ControlerList.as_view()),
-    url(r'^processor/time/latest/$',views.Controler_latest),
+    url(r'^controler/time',views.ControlerList.as_view()),
+    url(r'^processor/time/latest/$',views.Processor_latest),
+    url(r'^processor/time',views.ProcessorList.as_view()),
+    url(r'^detail/controler/$',views.ControlerDetail),
+    url(r'^detail/processor/$',views.ProcessorDetail),
+    url(r'^detail/search/&',views.Search)
 ]

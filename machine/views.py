@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from rest_framework import viewsets,generics
 from machine.models import Controler,Processor,Controler_threshold,Processor_threshold
 from machine.serializers import ControlerSerializer,ProcessorSerializer
@@ -8,13 +8,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework import status
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from users.models import User
 from django.core.mail import send_mail
 
 class ControlerViewSet(viewsets.ModelViewSet):
     queryset = Controler.objects.all()
     serializer_class = ControlerSerializer
-    permission_classes = (permissions.IsAuthenticated,permissions.DjangoModelPermissions)
+    #permission_classes = (permissions.IsAuthenticated,permissions.DjangoModelPermissions)
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -42,26 +43,38 @@ class ControlerViewSet(viewsets.ModelViewSet):
 
 
 class ControlerList(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ControlerSerializer
     def get_queryset(self):
         try:
-            year=int(self.request.query_params.get('year',None))
-            month=int(self.request.query_params.get('month',None))
-            day=int(self.request.query_params.get('day',None))
+            year=int(self.request.query_params.get('year',None)) #query_params
+            month=int(self.request.GET.get('month',None))
+            day=int(self.request.GET.get('day',None))
             return Controler.objects.filter(timestamp__date=datetime.date(year,month,day))
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        header = {'Access-Control-Allow-Origin': '*'}
+        #page = self.paginate_queryset(queryset)
+        #if page is not None:
+        #    serializer = self.get_serializer(page, many=True)
+        #    return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data,headers=header)
+
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated,))
+#@permission_classes((permissions.IsAuthenticated,))
 def Controler_latest(request,format=None):
+    header={'Access-Control-Allow-Origin':'*'}
     try:
         data=Controler.objects.latest('timestamp')
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer=ControlerSerializer(data)
-    return Response(serializer.data)
+    return Response(serializer.data,headers=header)
 
 
 ###############################  Processor  #############################################
@@ -69,7 +82,7 @@ def Controler_latest(request,format=None):
 class ProcessorViewSet(viewsets.ModelViewSet):
     queryset = Processor.objects.all()
     serializer_class = ProcessorSerializer
-    permission_classes = (permissions.IsAuthenticated, permissions.DjangoModelPermissions)
+    #permission_classes = (permissions.IsAuthenticated, permissions.DjangoModelPermissions)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -100,18 +113,51 @@ class ProcessorList(generics.ListAPIView):
     serializer_class = ProcessorSerializer
     def get_queryset(self):
         try:
-            year=int(self.request.query_params.get('year',None))
-            month=int(self.request.query_params.get('month',None))
-            day=int(self.request.query_params.get('day',None))
+            year=int(self.request.GET.get('year',None))
+            month=int(self.request.GET.get('month',None))
+            day=int(self.request.GET.get('day',None))
             return Processor.objects.filter(timestamp__date=datetime.date(year,month,day))
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        header = {'Access-Control-Allow-Origin': '*'}
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data,headers=header)
+
 @api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
 def Processor_latest(request,format=None):
+    header = {'Access-Control-Allow-Origin': '*'}
     try:
         data=Processor.objects.latest('timestamp')
     except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND,headers=header)
     serializer=ProcessorSerializer(data)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
+def ControlerDetail(request):
+    return render(request,'Detail.html')
+
+
+@api_view(['GET'])
+@permission_classes((permissions.IsAuthenticated,))
+def ProcessorDetail(request):
+    return render(request,'ProcessorDetail.html')
+
+def Search(request):
+    machine=request.GET.get('machine').lower()
+    if machine=='controler':
+        return redirect('/api/machine/detail/controler/')
+    if machine=='Processor':
+        return redirect('/api/machine/detail/processor/')
+    return render()
+
