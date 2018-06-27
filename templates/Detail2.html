@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" type="text/css" href="css/style2.css">
+<!-- font-awesome icons -->
+<link rel="stylesheet" href="css/font.css" type="text/css"/>
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons -->
+<script src="js/jquery2.0.3.min.js"></script>
+<script src="js/raphael-min.js"></script>
+<script src="js/morris.js"></script>
+</head>
+<body onload="getTime()">
+<header class="header fixed-top clearfix">
+<div class="brand">
+    <a href="index.html" class="logo">
+        FACTORY MONITOR
+    </a>
+    <div class="sidebar-toggle-box">
+        <div class="fa fa-bars"></div>
+    </div>
+</div>
+
+<div class="top-nav clearfix">
+    <ul class="nav pull-right top-menu">
+        <li>
+            <input type="text" class="form-control search" placeholder="搜索仪器">
+        </li>
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <img alt="" src="images/bg.jpg">
+                <span class="username">用户中心</span>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+                <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
+                <li><a href="#"><i class="fa fa-cog"></i>管理员入口</a></li>
+                <li><a href="login.html"><i class="fa fa-key"></i>注销</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</header>
+<aside>
+    <div id="sidebar" class="nav-collapse">
+        <div class="leftside-navigation">
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li class="sub-menu">
+                    <a class="active" href="index.html">
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>仪器总览</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="Detail.html">仪器详情</a></li>
+						
+                    </ul>
+                </li>
+                <li>
+                    <a href="registration/login.html">
+                        <i class="fa fa-user"></i>
+                        <span>返回登录</span>
+                    </a>
+                </li>
+            </ul>            
+        </div>
+    </div>
+</aside>
+<section id="main-content">
+    <section class="wrapper">
+        <h2>污水处理器</h2>
+        <div class="time" id="time">
+        </div>
+    </section>
+</section>
+
+<!-- 四幅图 -->
+<div id="level" style="height:400px;width: 900px;float:right;"></div>
+<div id="temperature" style="height:400px;width: 900px;float:right;"></div>
+<div id="PH" style="height:400px;width: 900px;float:right;"></div>
+<div id="density" style="height:400px;width: 900px;float:right;"></div>
+
+
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+<script type="text/javascript">
+  
+ 
+    //level 是出水流量列表
+    var level = [0];
+	var temperature = [0];
+	var PH = [0];
+	var density = [0];
+    //var x_update 是横坐标列表
+    var x_update = [0];
+    // 基于准备好的dom，初始化echarts图表
+    var Chart_level = echarts.init(document.getElementById("level"));
+	var Chart_temperature = echarts.init(document.getElementById("temperature"));
+	var Chart_PH = echarts.init(document.getElementById("PH"));
+	var Chart_density = echarts.init(document.getElementById("density"));
+	var option_level = {
+        title : {
+            text: '工厂仪器指标',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+		
+        legend: {
+		    x: 'center',
+			borderWidth: 2,
+            data:['提升泵液位']
+        },
+        //右上角工具条
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : x_update
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} m^3/s'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'提升泵液位',
+                type:'line',
+                data:level,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+
+        ]
+    };
+	var option_temperature = {
+        title : {
+            text: '工厂仪器指标',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+		
+        legend: {
+		    x: 'center',
+			borderWidth: 2,
+            data:['曝气池温度']
+        },
+        //右上角工具条
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : x_update
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} m^3/s'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'曝气池温度',
+                type:'line',
+                data:temperature,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+
+        ]
+    };
+	var option_PH = {
+        title : {
+            text: '工厂仪器指标',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+		
+        legend: {
+		    x: 'center',
+			borderWidth: 2,
+            data:['曝气池PH']
+        },
+        //右上角工具条
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : x_update
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} m^3/s'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'曝气池PH',
+                type:'line',
+                data:PH,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+
+        ]
+    };
+	var option_density = {
+        title : {
+            text: '工厂仪器指标',
+        },
+        tooltip : {
+            trigger: 'axis'
+        },
+		
+        legend: {
+		    x: 'center',
+			borderWidth: 2,
+            data:['污泥浓度']
+        },
+        //右上角工具条
+        toolbox: {
+            show : false,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : x_update
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                axisLabel : {
+                    formatter: '{value} m^3/s'
+                }
+            }
+        ],
+        series : [
+            {
+                name:'污泥浓度',
+                type:'line',
+                data:density,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            }
+
+        ]
+    };
+    
+
+    // 为echarts对象加载数据
+    Chart_level.setOption(option_level);
+	Chart_temperature.setOption(option_temperature);
+	Chart_PH.setOption(option_PH);
+	Chart_density.setOption(option_density);
+
+	//document.getElementById("show").innerHTML=level
+function loadXMLDoc()
+{
+	var receive
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+	
+		//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+		// IE6, IE5 浏览器执行代码
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{	
+			//document.getElementById("show").innerHTML=xmlhttp.responseText
+			receive = JSON.parse(xmlhttp.responseText);
+			mydate = new Date()
+			level.push(receive.level);
+			temperature.push(receive.temperature)
+			PH.push(receive.PH)
+			density.push(receive.density)
+			mytime = receive.timestamp;
+			x_update.push(format(mytime));
+			Chart_level.setOption(option_level);
+			Chart_temperature.setOption(option_temperature);
+			Chart_PH.setOption(option_PH);
+			Chart_density.setOption(option_density);
+		}
+		xmlhttp.readyState=0
+		
+	}
+	xmlhttp.open("GET","http://127.0.0.1:8000/api/machine/processor/time/latest/?format=json",true);
+	xmlhttp.send();
+};
+
+function format(mytime)
+{
+return mytime[11]+mytime[12]+mytime[13]+mytime[14]+mytime[15]+mytime[16]+mytime[17]+mytime[18];
+};
+
+function update()
+{ 
+loadXMLDoc()
+}
+    //setInterval是间隔一定市场循环调用函数
+    setInterval(function(){update()},300);
+
+
+</script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/jquery.scrollTo.js"></script>
+</html>

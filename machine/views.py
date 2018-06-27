@@ -11,6 +11,7 @@ from rest_framework.response import Response
 #from django.contrib.auth.models import User
 from users.models import User
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
 
 class ControlerViewSet(viewsets.ModelViewSet):
     queryset = Controler.objects.all()
@@ -132,20 +133,19 @@ class ProcessorList(generics.ListAPIView):
         return Response(serializer.data,headers=header)
 
 @api_view(['GET'])
-@permission_classes((permissions.IsAuthenticated,))
 def Processor_latest(request,format=None):
     header = {'Access-Control-Allow-Origin': '*'}
     try:
         data=Processor.objects.latest('timestamp')
     except:
-        return Response(status=status.HTTP_404_NOT_FOUND,headers=header)
+        return Response(status=status.HTTP_404_NOT_FOUND)
     serializer=ProcessorSerializer(data)
-    return Response(serializer.data)
+    return Response(serializer.data,headers=header)
 
 @api_view(['GET'])
 @permission_classes((permissions.IsAuthenticated,))
 def ControlerDetail(request):
-    return render(request,'Detail.html')
+    return render(request,'Detail-re.html')
 
 
 @api_view(['GET'])
@@ -153,11 +153,14 @@ def ControlerDetail(request):
 def ProcessorDetail(request):
     return render(request,'ProcessorDetail.html')
 
+@csrf_exempt
 def Search(request):
-    machine=request.GET.get('machine').lower()
+    machine=request.POST.get('machine')
+    print(machine)
+    machine
     if machine=='controler':
         return redirect('/api/machine/detail/controler/')
-    if machine=='Processor':
+    if machine=='processor':
         return redirect('/api/machine/detail/processor/')
     return render()
 

@@ -18,119 +18,135 @@
 <script src="/static/js/morris.js"></script>
 </head>
 <body>
-<header class="header fixed-top clearfix">
+    <header class="header fixed-top clearfix">
 
-<div class="brand">
-    <a href="index.html" class="logo">
-        FACTORY MONITOR
-    </a>
-    <div class="sidebar-toggle-box">
-        <div class="fa fa-bars"></div>
-    </div>
-</div>
-
-
-<div class="top-nav clearfix">
-
-    <ul class="nav pull-right top-menu">
-        <li>
-            <input type="text" class="form-control search" placeholder="搜索仪器">
-        </li>
-
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="/static/images/bg.jpg">
-                <span class="username">用户中心</span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i>管理员入口</a></li>
-                <li><a href="{% url 'users:logout' %}?next={{request.path}}"><i class="fa fa-key"></i>注销</a></li>
-            </ul>
-        </li>
-       
-    </ul>
-</div>
-</header>
-<aside>
-    <div id="sidebar" class="nav-collapse">
-
-        <div class="leftside-navigation">
-            <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="index.html">
-                        <i class="fa fa-dashboard"></i>
-                        <span>仪器总览</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'users:login' %}?next={{ request.path }}">
-                        <i class="fa fa-user"></i>
-                        <span>返回登录</span>
-                    </a>
-                </li>
-            </ul>            
+    <div class="brand">
+        <a href="/" class="logo">
+            FACTORY MONITOR
+        </a>
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars"></div>
         </div>
     </div>
-</aside>
-<section id="main-content">
-    <section class="wrapper">
-        <div class="machines" id="machines">
-            <div class="instrument">
-                <img src="#">
-                <table class="instrument_info">
-                    <tr colspan="2">
-                        <td class="instrument_name">仪器名</td>
-                        <td>编号：</td>   
-                    </tr>
-                    <tr>
-                        <td>示数1：</td>
-                        <td>示数2：</td>
-                    </tr>
-                    <tr>
-                        <td>示数3：</td>   
-                        <td>示数4：</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2" cl="detail_info">
+
+
+    <div class="top-nav clearfix">
+
+        <ul class="nav pull-right top-menu">
+            <li>
+                <form id="searchfrom" action="/api/machine/detail/search/" method="post">
+                    <input type="text" name="machine" class="form-control search" onkeyup='revalue(this.value)' placeholder="搜索仪器">
+                </form>
+
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <img alt="" src="/static/images/bg.jpg">
+                    <span class="username">用户中心</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu extended logout">
+                    <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
+                    <li><a href="/admin"><i class="fa fa-cog"></i>管理员入口</a></li>
+                    <li><a href="{% url 'users:logout' %}?next={{request.path}}"><i class="fa fa-key"></i>注销</a></li>
+                </ul>
+            </li>
+           
+        </ul>
+    </div>
+    </header>
+    <aside>
+        <div id="sidebar" class="nav-collapse">
+
+            <div class="leftside-navigation">
+                <ul class="sidebar-menu" id="nav-accordion">
+                    <li>
+                        <a class="active" href="/">
+                            <i class="fa fa-dashboard"></i>
+                            <span>仪器总览</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'users:login' %}?next={{ request.path }}">
+                            <i class="fa fa-user"></i>
+                            <span>返回登录</span>
+                        </a>
+                    </li>
+                </ul>            
+            </div>
+        </div>
+    </aside>
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="machines" id="machines">
+                <div class="instrument">
+                    <img src="/static/images/machine1.jpeg">
+                    <div class="right=block">
+                        <table class="instrument_info">
+                            <tr colspan="2">
+                                <td class="Controler">污水进出控制器</td>
+                                <td>编号：1</td>   
+                            </tr>
+                            <tr>
+                                <td class="water_in">进水流量：</td>
+                                <td class="water_out">出水流量：</td>
+                            </tr>
+                            <tr>
+                                <td class="COD">出水COD：</td>   
+                                <td class="BOD">出水BOD：</td>
+                            </tr>
+                        </table>
                         <a href="/api/machine/detail/controler/" class=" button pink detail-info">详情</a>
-                        </td>
-                    </tr>
-                </table>
-                <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="instrument">
+                    <img src="/static/images/machine2.jpeg">
+                    <table class="instrument_info">
+                        <tr colspan="2">
+                            <td class="Processor">污水处理器</td>
+                            <td>编号：2</td>   
+                        </tr>
+                        <tr>
+                                <td class="level">提升泵液位：</td>
+                                <td class="temperature">曝气池温度：</td>
+                            </tr>
+                            <tr>
+                                <td class="PH">曝气池PH：</td>   
+                                <td class="density">污泥浓度：</td>
+                            </tr>
+                        </table>
+                        <a href="/api/machine/detail/processor/" class=" button pink detail-info">详情</a>
+                    <div class="clear"></div>
+                </div>
             </div>
-            <div class="instrument">
-                <img src="#">
-                <table class="instrument_info">
-                    <tr colspan="2">
-                        <td class="instrument_name">仪器名</td>
-                        <td>编号：</td>   
-                    </tr>
-                    <tr>
-                        <td>示数1：</td>
-                        <td>示数2：</td>
-                    </tr>
-                    <tr>
-                        <td>示数3：</td>   
-                        <td>示数4：</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="2" class="detail_info">
-                        <a href="Detail.html" class=" button pink detail-info">详情</a>
-                        </td>
-                    </tr>
-                </table>
-                <div class="clear"></div>
-            </div>
-        </div>
-</section>
-</section>
-<script src="/static/js/bootstrap.js"></script>
-<script src="/static/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="/static/js/scripts.js"></script>
-<script src="/static/js/jquery.slimscroll.js"></script>
-<script src="/static/js/jquery.nicescroll.js"></script>
+    </section>
+    </section>
+    <script src="/static/js/ajax.js"></script>
+    <script>
+            $.getJSON("/api/machine/controler/time/latest/",function(msg) {
+                $.each(msg.data.list, function (index, sport) {
+                        $(".water_in").html(sport.water_in);
+                        $(".water_out").html(sport.water_out);
+                        $(".COD").html(sport.COD);
+                        $(".BOD").html(sport.BOD);
+                })
+            })
 
-<script src="/static/js/jquery.scrollTo.js"></script>
+             $.getJSON("/api/machine/processor/time/latest/",function(msg) {
+                $.each(msg.data.list, function (index, sport) {
+                    $(".level").html(sport.level);
+                    $(".temperature").html(sport.temperature);
+                    $(".PH").html(sport.PH);
+                    $(".density").html(sport.density);
+                })
+            })
+    </script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="/static/js/scripts.js"></script>
+    <script src="/static/js/jquery.slimscroll.js"></script>
+    <script src="/static/js/jquery.nicescroll.js"></script>
+
+    <script src="/static/js/jquery.scrollTo.js"></script>
+</body>
 </html>

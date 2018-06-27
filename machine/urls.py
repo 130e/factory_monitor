@@ -16,5 +16,5 @@ urlpatterns=[
     url(r'^processor/time',views.ProcessorList.as_view()),
     url(r'^detail/controler/$',views.ControlerDetail),
     url(r'^detail/processor/$',views.ProcessorDetail),
-    url(r'^detail/search/&',views.Search)
+    url(r'^detail/search/$',views.Search)
 ]
