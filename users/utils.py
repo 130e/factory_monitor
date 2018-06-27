@@ -26,7 +26,7 @@ def send_auth_email(name, email):
     # 如果为注册类型
     email_title = "Factory项目-注册激活链接"
     email_body = "Hello {}, \n".format(name)
-    email_body += "请点击下面的链接激活你的账号: http://140.82.18.139:8000/users/activate/{0}/{1}".format(name, code)
+    email_body += "请点击下面的链接激活你的账号: http://106.15.230.111/users/activate/{0}/{1}".format(name, code)
     email_body += "\n TheGreatNet Group {}".format(datetime.now())
     # 发送邮件
     emailmsg = EmailMessage(subject=email_title, body=email_body, to=[email])

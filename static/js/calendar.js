@@ -557,6 +557,6 @@ function loadDateXMLDoc(date)
 		}
 	}
 	//改一下时间
-	xmlhttp.open("GET","http://127.0.0.1:8000/api/machine/controler/"+t_seq+"&format=json",false);
+	xmlhttp.open("GET","http://106.15.230.111/api/machine/controler/"+t_seq+"&format=json",false);
 	xmlhttp.send();
 };
