@@ -21,7 +21,7 @@
 <header class="header fixed-top clearfix">
 
 <div class="brand">
-    <a href="index.html" class="logo">
+    <a href="{% url 'index' %}" class="logo">
         FACTORY MONITOR
     </a>
     <div class="sidebar-toggle-box">
@@ -45,7 +45,7 @@
             </a>
             <ul class="dropdown-menu extended logout">
                 <li><a href="#"><i class=" fa fa-suitcase"></i>我的信息</a></li>
-                <li><a href="#"><i class="fa fa-cog"></i>管理员入口</a></li>
+                <li><a href="/admin/"><i class="fa fa-cog"></i>管理员入口</a></li>
                 <li><a href="{% url 'users:logout' %}?next={{request.path}}"><i class="fa fa-key"></i>注销</a></li>
             </ul>
         </li>
@@ -59,7 +59,7 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="index.html">
+                    <a class="active" href="{% url 'index' %}">
                         <i class="fa fa-dashboard"></i>
                         <span>仪器总览</span>
                     </a>
@@ -117,7 +117,7 @@
                     </tr>
                     <tr>
                         <td rowspan="2" class="detail_info">
-                        <a href="Detail.html" class=" button pink detail-info">详情</a>
+                        <a href="/api/machine/detail/processor/" class=" button pink detail-info">详情</a>
                         </td>
                     </tr>
                 </table>
