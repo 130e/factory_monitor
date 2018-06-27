@@ -3,6 +3,8 @@ import numpy as np
 import requests
 
 count = 0
+#url_con = 'http://106.15.230.111/api/machine/controler/'
+#url_pro = 'http://106.15.230.111/api/machine/processor/'
 url_con = 'http://localhost:8000/api/machine/controler/'
 url_pro = 'http://localhost:8000/api/machine/processor/'
 
