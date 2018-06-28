@@ -7,7 +7,7 @@ $(document).ready(function () {
             url: "http://106.15.230.111/api/machine/controler/time/latest/",
             dataType: "json",
             success: function (msg) {       //msg为返回的json数据
-                $.each(msg.data, function (index, sport) {
+                $.each(msg, function (index, sport) {
                     $(".water_in").html(sport.water_in);
                     $(".water_out").html(sport.water_out);
                     $(".COD").html(sport.COD);
