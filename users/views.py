@@ -28,7 +28,7 @@ class RegisterView(View):
 
             user.username = user_name
             user.email = user_email
-            user.password = make_password(form.clean_password2())
+            user.password = make_password(form.cleaned_data.get('password1'))
             # 新建为非活跃用户，邮箱验证后变为活跃用户
             user.is_active = False
             user.save()
@@ -36,8 +36,9 @@ class RegisterView(View):
             # logging
             logger = logging.getLogger('users.register')
             logger.info('New User {0} registered.'.format(user_name))
-            logger.info(form.clean_password2())
+            logger.info(form.cleaned_data.get('password1'))
             logger.info(user.password)
+            
             # 验证邮箱
             send_auth_email(user_name, user_email)
             return redirect('/')
