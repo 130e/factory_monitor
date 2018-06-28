@@ -23,7 +23,7 @@ $(document).ready(function () {
             url: "http://106.15.230.111/api/machine/processor/latest/",
             dataType: "json",
             success: function (msg) {
-                 $.each(msg.data, function (index, sport) {
+                 $.each(msg, function (index, sport) {
                     $(".level").html(sport.level);
                     $(".temperature").html(sport.temperature);
                     $(".PH").html(sport.PH);
