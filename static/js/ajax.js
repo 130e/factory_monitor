@@ -29,7 +29,7 @@ $(document).ready(function () {
                     $(".PH").html(sport.PH);
                     $(".density").html(sport.density);
 
-                }）
+                })
         }
     );
 });
