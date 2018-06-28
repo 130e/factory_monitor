@@ -124,13 +124,13 @@
     <script src="/static/js/ajax.js"></script>
     <script>
             $.getJSON("/api/machine/controler/time/latest/",function(msg) {
-                $.each(msg.data.list, function (index, sport) {
+                $.each(msg.data, function (index, sport) {
                         $(".water_in").html(sport.water_in);
                         $(".water_out").html(sport.water_out);
                         $(".COD").html(sport.COD);
                         $(".BOD").html(sport.BOD);
                 })
-            })
+            });
 
              $.getJSON("/api/machine/processor/time/latest/",function(msg) {
                 $.each(msg.data.list, function (index, sport) {
