@@ -182,7 +182,7 @@ LOGGING = {
         'file': {#文件handler
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': './controller.log',
+            'filename': './log/register.log',
             'formatter': 'standard',
         },
         'console': {#控制器handler，INFO级别以上的日志都要Simple格式输出到控制台
