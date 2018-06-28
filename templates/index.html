@@ -133,7 +133,7 @@
             });
 
              $.getJSON("/api/machine/processor/time/latest/",function(msg) {
-                $.each(msg.data.list, function (index, sport) {
+                $.each(msg, function (index, sport) {
                     $(".level").html(sport.level);
                     $(".temperature").html(sport.temperature);
                     $(".PH").html(sport.PH);
