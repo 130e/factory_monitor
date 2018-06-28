@@ -8,11 +8,6 @@ from .utils import send_auth_email
 
 import logging
 logging.basicConfig(format='%(asctime)s:%(levelname)s:\n%(message)s',level=logging.INFO)
-logger = logging.getLogger(__name__)
-file_handler=logging.FileHandler('./log/chinese_charcnn.log',mode='w')
-stream_handler=logging.StreamHandler()
-logger.addHandler(file_handler)
-logger.addHandler(stream_handler)
 
 class RegisterView(View):
     
@@ -23,7 +18,7 @@ class RegisterView(View):
     def post(self, request):
         logger = logging.getLogger('users.register')
 
-        file_handler = logging.FileHandler('./log/register.log', mode='w')
+        file_handler = logging.FileHandler('/var/www/factory_monitor/log/register.log', mode='w')
         stream_handler = logging.StreamHandler()
         logger.addHandler(file_handler)
         logger.addHandler(stream_handler)
