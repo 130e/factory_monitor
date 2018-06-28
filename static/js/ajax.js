@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    setInterval("ask()",5000);
+    setInterval(function(){ask()},5000);
     function ask(){
         $.ajax(
             {
