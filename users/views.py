@@ -7,6 +7,12 @@ from .models import User
 from .utils import send_auth_email
 
 import logging
+logging.basicConfig(format='%(asctime)s:%(levelname)s:\n%(message)s',level=logging.INFO)
+logger = logging.getLogger(__name__)
+file_handler=logging.FileHandler('./log/chinese_charcnn.log',mode='w')
+stream_handler=logging.StreamHandler()
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 
 class RegisterView(View):
     
@@ -15,6 +21,12 @@ class RegisterView(View):
         return render(request, 'registration/registration.html', context={'form': empty_form})
     
     def post(self, request):
+        logger = logging.getLogger('users.register')
+
+        file_handler = logging.FileHandler('./log/register.log', mode='w')
+        stream_handler = logging.StreamHandler()
+        logger.addHandler(file_handler)
+        logger.addHandler(stream_handler)
         # request.POST 是一个类字典数据结构，记录了用户提交的注册信息
         # 这里提交的就是用户名（username）、密码（password）、确认密码、邮箱（email）
         # 用这些数据实例化一个用户注册表单
@@ -25,16 +37,15 @@ class RegisterView(View):
             user = User()
             user_name = request.POST.get("username", '')
             user_email = request.POST.get("email", '')
-            
+            logger.info(form.clean_password2())
             user.username = user_name
             user.email = user_email
             user.password = make_password(form.clean_password2())
             # 新建为非活跃用户，邮箱验证后变为活跃用户
             user.is_active = False
             user.save()
-            
+
             # logging
-            logger = logging.getLogger('users.register')
             logger.info('New User {0} registered.'.format(user_name))
             
             
