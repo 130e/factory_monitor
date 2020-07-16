@@ -1,4 +1,7 @@
 # factory_monitor
+UESTC, 2018 
+**Classroom project**
+
 ## setup
 1. add your host ip in factory_monitor/settings.py
     ALLOW_HOST = ['ip', ]
